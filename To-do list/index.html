@@ -3,32 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #eee;
+            margin: 5px 0;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        button {
+            cursor: pointer;
+            border: none;
+            padding: 5px;
+            margin-left: 5px;
+            border-radius: 5px;
+        }
+        .edit { background: yellow; }
+        .delete { background: red; color: white; }
+        .done { background: green; color: white; }
+        .completed { text-decoration: line-through; color: gray; }
+    </style>
 </head>
 <body>
- <div id="main">
-    <div id="center">
-        <div class="text">
-            <h1>Lake</h1>
-            <h1>Nature</h1>
-            <h1>Mountain</h1>
-        </div>
-        <div id="one" class="imgcontainer">
-            <img src="https://plus.unsplash.com/premium_photo-1661901587550-86a4bac369fd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-        </div>
-        <div id="two" class="imgcontainer">
-            <img src="https://plus.unsplash.com/premium_photo-1661962660197-6c2430fb49a6?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-        </div>
-        <div id="three" class="imgcontainer">
-         <img src="https://images.unsplash.com/photo-1629997047282-41f678126175?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-        </div>
+    <div class="container">
+        <h2>To-Do List</h2>
+        <input type="text" id="taskInput" placeholder="Add a new task">
+        <button onclick="addTask()">Add</button>
+        <ul id="taskList"></ul>
     </div>
- </div> 
- 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
- <script src="Script.js"></script>
 
+    <script>
+        function addTask() {
+            let taskInput = document.getElementById("taskInput");
+            let taskText = taskInput.value.trim();
+            if (taskText === "") return;
+
+            let li = document.createElement("li");
+            li.innerHTML = `<span>${taskText}</span>
+                <button class="done" onclick="markDone(this)">Done</button>
+                <button class="edit" onclick="editTask(this)">Edit</button>
+                <button class="delete" onclick="deleteTask(this)">Delete</button>`;
+            document.getElementById("taskList").appendChild(li);
+            taskInput.value = "";
+        }
+
+        function deleteTask(button) {
+            button.parentElement.remove();
+        }
+
+        function editTask(button) {
+            let task = button.parentElement;
+            let taskText = task.querySelector("span").innerText;
+            let newTask = prompt("Edit task:", taskText);
+            if (newTask) task.querySelector("span").innerText = newTask;
+        }
+
+        function markDone(button) {
+            let task = button.parentElement;
+            task.querySelector("span").classList.toggle("completed");
+        }
+    </script>
 </body>
 </html>
-  
