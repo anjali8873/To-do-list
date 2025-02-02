@@ -4,47 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            text-align: center;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            background: #eee;
-            margin: 5px 0;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        button {
-            cursor: pointer;
-            border: none;
-            padding: 5px;
-            margin-left: 5px;
-            border-radius: 5px;
-        }
-        .edit { background: yellow; }
-        .delete { background: red; color: white; }
-        .done { background: green; color: white; }
-        .completed { text-decoration: line-through; color: gray; }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -54,36 +14,6 @@
         <ul id="taskList"></ul>
     </div>
 
-    <script>
-        function addTask() {
-            let taskInput = document.getElementById("taskInput");
-            let taskText = taskInput.value.trim();
-            if (taskText === "") return;
-
-            let li = document.createElement("li");
-            li.innerHTML = `<span>${taskText}</span>
-                <button class="done" onclick="markDone(this)">Done</button>
-                <button class="edit" onclick="editTask(this)">Edit</button>
-                <button class="delete" onclick="deleteTask(this)">Delete</button>`;
-            document.getElementById("taskList").appendChild(li);
-            taskInput.value = "";
-        }
-
-        function deleteTask(button) {
-            button.parentElement.remove();
-        }
-
-        function editTask(button) {
-            let task = button.parentElement;
-            let taskText = task.querySelector("span").innerText;
-            let newTask = prompt("Edit task:", taskText);
-            if (newTask) task.querySelector("span").innerText = newTask;
-        }
-
-        function markDone(button) {
-            let task = button.parentElement;
-            task.querySelector("span").classList.toggle("completed");
-        }
-    </script>
+    <script src="/script.js"></script>
 </body>
 </html>
